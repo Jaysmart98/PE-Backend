@@ -8,4 +8,4 @@ const validationSchema =  yup.object({
     email:yup.string().trim().email("Must be a valid email address").required("email is required"),
 })
 
-module.export = validationSchema
+module.exports = validationSchema
