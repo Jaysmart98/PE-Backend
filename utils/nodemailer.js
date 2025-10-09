@@ -3,8 +3,8 @@ const nodemailer = require("nodemailer")
 
 const MailVerification = async(email, username, link) => {
 
-    const MessageTemplate = `
-    <!DOCTYPE html>
+    const MessageTemplate = 
+    `<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -121,8 +121,7 @@ const MailVerification = async(email, username, link) => {
         </tr>
     </table>
 </body>
-</html>
-    `
+</html>`
 
    const transporter = await nodemailer.createTransport({
         service:"gmail",
