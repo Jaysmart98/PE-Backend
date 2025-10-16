@@ -136,44 +136,4 @@ const UpdateProfile =  async (req, res) => {
 }
 
 
-const { token } = req.body;
-const ticket = await client.verifyIdToken({
-    idToken: token,
-    audience: YOUR_CLIENT_ID, // Ensure the audience matches your Client ID
-});
-const payload = ticket.getPayload();
-const { sub: googleId, email, name, picture } = payload;
-
-
-
-
-let user = await db.findUserByEmail(email);
-let isNewUser = false;
-
-if (!user) {
-    isNewUser = true;
-    
-    user = await db.createNewUser({
-        email: email,
-        name: name,
-        googleId: googleId,
-    });
-    console.log("New user registered successfully.");
-}
-
-else {
-    await db.updateUserLastLogin(user.id);
-    console.log("Existing user signed in.");
-}
-
-const appToken = generateAppSessionToken(user.id);
-
-res.status(200).json({
-    success: true,
-    token: appToken,
-    isNewUser: isNewUser,
-    userName: user.name,
-});
-
-
 module.exports = {userSignup, userLogin, verifytoken, verifyemail, UpdateProfile}
