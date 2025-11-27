@@ -10,7 +10,8 @@ const ejs = require("ejs")
 
 currentUser = ""
 
-app.use(cors({origin:"*"}))
+
+app.use(cors({ origin: '*' })); 
 app.use(express.json({limit:"50mb"}))
 app.use("/", userrouter)
 app.set("view engine", "ejs")

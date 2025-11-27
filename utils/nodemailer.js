@@ -4,13 +4,13 @@ const nodemailer = require("nodemailer")
 const MailVerification = async(email, username, link) => {
 
     const MessageTemplate = 
-    `<!DOCTYPE html>
+    `<!DOCTYPE html> 
     <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Email Template</title>
-        <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Action Required: Verify Your Email</title>
+    <style>
         body {
             margin: 0;
             padding: 0;
@@ -35,7 +35,7 @@ const MailVerification = async(email, username, link) => {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .header {
-            background-color: #3b82f6;
+            background-color: #0d9488; /* Teal/Turquoise color for health/wellness feel */
             padding: 24px;
             text-align: center;
             color: #ffffff;
@@ -50,23 +50,27 @@ const MailVerification = async(email, username, link) => {
             line-height: 1.6;
         }
         .content h2 {
-            font-size: 20px;
+            font-size: 22px;
             color: #1f2937;
             margin-top: 0;
+            font-weight: 600;
         }
         .button-container {
             text-align: center;
-            margin-top: 24px;
-            margin-bottom: 24px;
+            margin-top: 30px;
+            margin-bottom: 30px;
         }
         .button {
             display: inline-block;
             padding: 12px 24px;
-            background-color: #3b82f6;
+            background-color: #059669; /* Slightly darker green/teal for button */
             color: #ffffff !important;
             text-decoration: none;
             border-radius: 6px;
             font-weight: bold;
+            font-size: 16px;
+            /* Ensure the button is clickable even if images are blocked */
+            border: 1px solid #059669; 
         }
         .footer {
             background-color: #e5e7eb;
@@ -80,40 +84,44 @@ const MailVerification = async(email, username, link) => {
             text-decoration: underline;
         }
     </style>
-    </head>
-    <body style="margin: 0; padding: 0; background-color: #f4f4f4;">
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f4f4f4;">
-            <tr>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f4f4;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f4f4f4;">
+        <tr>
             <td align="center" style="padding: 20px;">
                 <table role="presentation" class="container" width="600" cellspacing="0" cellpadding="0" border="0" style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                    <!-- Header -->
+                    
                     <tr>
-                        <td class="header" style="background-color: #3b82f6; padding: 24px; text-align: center; color: #ffffff; border-top-left-radius: 8px; border-top-right-radius: 8px;">
-                            <h1 style="font-size: 24px; margin: 0;">Confirmation</h1>
+                        <td class="header" style="background-color: #334947ff; padding: 24px; text-align: center; color: #ffffff; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+                            <h1 style="font-size: 24px; margin: 0;">MedReminder</h1>
                         </td>
                     </tr>
-                    <!-- Content -->
+                  
                     <tr>
                         <td class="content" style="padding: 32px 24px; color: #333333; line-height: 1.6;">
-                            <h2 style="font-size: 20px; color: #1f2937; margin-top: 0;">Hello,</h2>
-                            <p>Thank you for signing up, please follow the instruction below before you sign in to the dashboard.</p>
-                            <p>Please click below button to confirm your email.</p>
+                            <h2 style="font-size: 22px; color: #1f2937; margin-top: 0;">Welcome, ${username} </h2>
+                            <p>Thank you for signing up for **\[App Name\]**, your trusted partner for managing health reminders.</p>
                             
-                            <!-- Call-to-action Button -->
-                            <div class="button-container" style="text-align: center; margin-top: 24px; margin-bottom: 24px;">
-                                <a href="${link}" class="button" style="display: inline-block; padding: 12px 24px; background-color: #3b82f6; color: #ffffff !important; text-decoration: none; border-radius: 6px; font-weight: bold;">Verify Email</a>
+                            <p>Before we can help you stay on track with your medication and doctor appointments, we need you to confirm your email address. This step ensures your security and guarantees you receive all your critical reminders.</p>
+
+                            <p style="text-align: center; font-weight: bold; margin-top: 25px;">Click the button below to instantly activate your account:</p>
+                            
+                            <!-- Email Verification Button -->
+                            <div class="button-container" style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
+                                <a href="\[Verify Link\]" class="button" style="display: inline-block; padding: 12px 24px; background-color: #059669; color: #ffffff !important; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 16px;">Verify My Email Address</a>
                             </div>
 
-                            <p>Thank you for signing up!</p>
+                            <p style="font-size: 14px; color: #6b7280; text-align: center; margin-top: 20px;">If the button above doesn't work, please copy and paste the following link into your web browser:</p>
+                            <p style="font-size: 14px; color: #0d9488; word-break: break-all; text-align: center;">Verify email</p>
+
+                            <p style="margin-top: 30px;">If you did not sign up for this service, please ignore this email.</p>
+                            <p>The Team at MedReminder</p>
                         </td>
                     </tr>
                     <!-- Footer -->
                     <tr>
                         <td class="footer" style="background-color: #e5e7eb; padding: 24px; text-align: center; color: #6b7280; font-size: 12px; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;">
-                            <p style="margin: 0;">© 2025 Your Company Name. All rights reserved.</p>
-                            <p style="margin: 8px 0 0;">
-                                <a href="https://www.example.com/unsubscribe" style="color: #6b7280; text-decoration: underline;">Unsubscribe</a>
-                            </p>
+                            <p style="margin: 0;">© 2025 MedReminder. All rights reserved.</p>
                         </td>
                     </tr>
                 </table>
